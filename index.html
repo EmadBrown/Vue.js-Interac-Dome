@@ -10,10 +10,31 @@
 </head>
 <body>
     <div id="app">
+        <h2>Understanding Vue.js Tamplate</h2>
         <h1 v-once>{{title}}</h1>
+        <h2>Binding / receiving an data by using v-bind</h2>
         <p>{{ sayHello() }} - <a v-bind:href="link">Googe</a></p>
         <hr>
         <p v-html="finishendLink"></p>
+        <hr>
+        <h2>Listening to Events / receiving an event by using v-on</h2>
+        <button v-on:click="increase">Click me</button>
+        <p>{{counter}}</p>
+        <hr>
+        <h2>Getting Event Data from the Event Object</h2>
+        <p v-on:mousemove='updateCoordinates'>Coordinates: {{x}} / {{y}}</p>
+        <hr>
+        <h2> Passing your own Arguments with Events</h2>
+        <button v-on:click="Arguments(3 , $event)">Click me</button>
+        <p>{{counterArguments}}</p>
+        <hr>
+        <h2>Modifying an Event - with Event Modifiers</h2>
+        <p v-on:mousemove='updateCoordinates'>Coordinates: {{x}} / {{y}} 
+            <span v-on:mousemove.stop=''>Dead Spot</span>
+        </p>
+        <hr>
+        <h2>Listening to Keyboard Events / Key Modifiers </h2>
+        <input type="text" v-on:keyup.enter.space="alertMe" name="" id="">
     </div>
     <script>
     // You may of course also outsource this script code into a separate file (e.g. app.js) and simply import this file here
@@ -22,13 +43,36 @@
             data: {
                 title: 'Hello World!',
                 link: 'http://www.google.com',
-                finishendLink: '<a href="http://www.google.com">Google</a>'
+                finishendLink: '<a href="http://www.google.com">Google</a>',
+                counter: 0,
+                counterArguments: 0,
+                x: 0,
+                y: 0
             },
             methods: {
                 sayHello: function() {
                     this.title = 'Hello'
                     return this.title;
+                },
+
+                increase: function(){
+                    return this.counter++;
+                },
+
+                Arguments: function(step , event){
+                    return this.counterArguments += step;
+                },
+
+                updateCoordinates: function(event){
+                    this.x = event.clientX;
+                    this.y = event.clientY;
+                },
+
+                alertMe: function(){
+                    alert('Alert');
                 }
+
+
             }
         })
     </script>
