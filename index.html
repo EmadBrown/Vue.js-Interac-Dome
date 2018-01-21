@@ -48,6 +48,9 @@
         <p>Counter: {{firstCounter}} | {{secondCounter}}</p>
         <p>Result: {{result()}} | {{output}}</p>
         <hr>
+        <h2>Saving Time with Shorthands</h2>
+        <button @click="changeLink">Click to Change link</button>
+        <a :href="link"></a>
         
 
     </div>
@@ -110,6 +113,9 @@
                 result:function(){
                     console.log('Methods');
                     return this.firstCounter > 5 ? 'Greater 5' : 'Smaller then 5';
+                },
+                changeLink:function(){
+                    this.link = 'http://www.google.com';
                 }
 
 
