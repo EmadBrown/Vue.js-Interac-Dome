@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
     <script src="vue.js"></script>
 </head>
 <body>
@@ -51,7 +51,28 @@
         <h2>Saving Time with Shorthands</h2>
         <button @click="changeLink">Click to Change link</button>
         <a :href="link"></a>
-        
+        <hr>
+        <h2>Dynamic Styling with CSS Classes</h2>
+        <div class="demo" @click='attchRed = !attchRed':class="{red:attchRed}"></div>
+        <div class="demo" @click='attchGreen = !attchGreen':class="{green:attchGreen}"></div>
+        <div class="demo" @click='attchYellow = !attchYellow':class="{yellow:attchYellow}"></div>
+        <hr>
+        <h2>Dynamic Styling with CSS Classes - Using Objects</h2>
+        <div class="demo" @click='attchRed = !attchRed':class="attchRedClass"></div>
+        <div class="demo" @click='attchGreen = !attchGreen':class="attchGreenClass"></div>
+        <div class="demo" @click='attchYellow = !attchYellow':class="attchYellowClass"></div>
+        <hr>
+        <h2>Dynamic Styling with CSS Classes - Using Names</h2>
+        <div class="demo"  :class="color"></div>
+        <input type="text" v-model='color'>
+        <hr>
+        <h2>Setting Styles Dynamically (without CSS Classes)</h2>
+        <div class="demo"  :style="styling"></div>
+        <div class="demo"  :style="[styling, {height: width + 'px'}]"></div>
+        <label for="">Color</label>
+        <input type="text" v-model='color1'>
+        <label for="">Width</label>
+        <input type="text" v-model='width'>
 
     </div>
     <script>
@@ -68,13 +89,46 @@
                 y: 0,
                 name: 'Emad',
                 firstCounter: 0,
-                secondCounter: 0
+                secondCounter: 0,
+                attchRed: false,
+                attchGreen: false,
+                attchYellow: false,
+                color: 'green',
+                color1: 'red',
+                width: 100
             },
 
             computed:{
                 output:function(){
                     console.log('Computed');
                     return this.firstCounter > 5 ? 'Greater 5' : 'Smaller then 5';
+                },
+                attchRedClass:function(){
+                    return {
+                        red: this.attchRed,
+                        black: !this.attchRed
+                    };
+                },
+
+                attchGreenClass:function(){
+                    return {
+                        green: this.attchGreen,
+                        black: !this.attchGreen
+                    };
+                },
+
+                attchYellowClass:function(){
+                    return {
+                        yellow: this.attchYellow,
+                        black: !this.attchYellow
+                    };
+                },
+
+                styling:function(){
+                    return {
+                        backgroundColor: this.color1,
+                        width: this.width + 'px'
+                    };
                 }
                 
             },
