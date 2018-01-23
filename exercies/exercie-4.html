@@ -13,31 +13,43 @@
     <div id="exercise">
         <!-- 1) Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink" class on each new setInterval tick (attach respective class to the div with id "effect" below) -->
         <div>
-          <button @click="startEffect">Start Effect</button>
-          <div id="effect"></div>
+            <button @click="startEffect">Start Effect</button>
+            <div id="effect" v-bind:class="effectClasses"></div>
         </div>
         <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
-        <div>I got no class :(</div>
+        <div :class="[yellowBackClass , 'redBorder']">I got no class :(</div>
         <!-- 3) Let the user enter a class (create some example classes) and attach it -->
-        <div>
-          <input type="text">
-          <div></div>
+        <div class='marginSpace'>
+          <label for="">Enter one: Circle, Rectangle, Square, Triangle-up, Pacman</label><br>
+          <input type="text" v-model='enterClass'>
+          <div class="marginSpace" :class="enterClass"></div>
         </div>
         <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
-        <div>
-          <input type="text">
-          <input type="text">
-          <div></div>
+        <div class='marginSpace'>
+          <label for="">Enter class name: Circle, Rectangle, Square, Triangle-up, Pacman</label><br>
+          <input  type="text" v-model='addClassData'>
+          <label for="">True / False</label>
+          <input  type="text" v-on:keyup.enter="addClass()" v-model="classBoolean">  
+          <!-- <div class="marginSpace" :class="showClassData"></div> -->
+          <div class="marginSpace" v-bind:class="[{visible: classBoolean} , showClassData]"></div>
         </div>
         <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
-        <div>
-          <input type="text">
-          <div></div>
+        <div class='marginSpace'>
+          <label for="">Enter any Back  -ground Color</label><br>
+          <input type="text" v-model='color'>
+          <div class='marginSpace box' :style="[styling]"></div>
+          <label for="">Enter any Back  -ground Color</label><br>
+          <input type="text" v-model='myStyle.backgroundColor'>
+          <div class='marginSpace box' :style="myStyle"></div>
         </div>
         <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
         <div>
           <button v-on:click="startProgress">Start Progress</button>
-          <div></div>
+          <div id="bar-color-background" class='marginSpace'>
+              <div id='progress-bar' :style="{width: widthBar + 'px'}"></div>
+          </div>
+          <button v-on:click="startProgress2">Start Progress</button>
+          <div v-bind:class="['progress-bar']" v-bind:style="progressBar"></div>
         </div>
       </div>
       
@@ -45,7 +57,77 @@
     new Vue({
         el: '#exercise',
         data:{
-            value: 0
+          effectClasses: {
+            highlight: false,
+              shrink: true
+            },
+          yellowBackClass: 'yellowBack',
+          enterClass: '',
+          myStyle:{
+            width: '100px',
+            height: '150px',
+            backgroundColor: 'gray'
+          },
+          addClassData: '',
+          showClassData: '',
+          classBoolean: false,
+          widthBar: 0,
+          color: '',
+          progressBar: {
+            width: '0px',
+            backgroundColor: 'red'
+          }
+          
+        },
+        computed:{
+
+          styling:function(){
+            return {backgroundColor: this.color };
+          },
+
+        },
+
+        methods:{
+          startEffect: function() {
+            var vm = this;
+              setInterval(function() {
+              vm.effectClasses.highlight = !vm.effectClasses.highlight;
+                vm.effectClasses.shrink = !vm.effectClasses.shrink;
+              }, 500);
+            },
+          
+          addClass: function(){
+            if(this.classBoolean == true || this.classBoolean == 'true' ){
+              this.showClassData = this.addClassData;
+             
+            }else{
+              alert('False');
+              this.showClassData = '';
+            }
+              
+          },
+
+          startProgress: function() {  
+            var vm = this;
+            var id = setInterval(function(){
+              if (vm.widthBar < 400) {
+                vm.widthBar++;
+              } else {
+                clearInterval(id);
+          
+              }
+            }, 10);
+          },
+
+          startProgress2: function() {
+            var vm = this;
+              var width = 0;
+            
+            setInterval(function() {
+              width = width + 10;
+              vm.progressBar.width = width + 'px';
+              }, 500);
+          }
         }
      
     });

@@ -25,7 +25,7 @@
         <p v-on:mousemove='updateCoordinates'>Coordinates: {{x}} / {{y}}</p>
         <hr>
         <h2> Passing your own Arguments with Events</h2>
-        <button v-on:click="Arguments(3 , $event)">Click me</button>
+        <button v-on:click="Arguments(3 ,   event)">Click me</button>
         <p>{{counterArguments}}</p>
         <hr>
         <h2>Modifying an Event - with Event Modifiers</h2>
