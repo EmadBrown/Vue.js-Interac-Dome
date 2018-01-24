@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2>Conditional Rendering with v-if</h2>
+        <p v-if='show'>You can see me!</p>
+        <p v-else>Now you see me!</p>
+        <p>Do you also see me</p>
+        <button @click='show = !show'>Switch</button> 
+        <hr>
+        <h2>Using an Alternative v-if Syntax</h2>    
+        <template v-if='template'>
+            <h1>Heading</h1>
+            <p>Inside a template</p>
+        </template>  
+        <button @click='template = !template'>Switch</button> 
+        <hr>
+        <h2>Don't Detach it with v-show / just hidden Style : Display none</h2>
+        <!-- onte hidden template by v-show doesn't work because browser doesn't render template tag -->
+        <div v-show='template'> 
+            <h1>V-Show Hidden</h1>
+        </div>  
+            <button @click='template = !template'>Switch</button> 
+    </div>
+    <script>
+    // You may of course also outsource this script code into a separate file (e.g. app.js) and simply import this file here
+        new Vue({
+            el: '#app',
+            data: {
+                show: true,
+                template: true
+            }
+        })
+    </script>
+</body>
+</html>
