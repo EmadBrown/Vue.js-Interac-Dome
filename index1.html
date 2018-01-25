@@ -29,6 +29,35 @@
             <h1>V-Show Hidden</h1>
         </div>  
             <button @click='template = !template'>Switch</button> 
+        <hr>
+        <h2>Rendering Lists with v-for</h2>
+        <ul>
+            <li v-for="ingredient in ingredients"> {{ ingredient }}</li>
+        </ul>
+        <h2>Getting the Current Index</h2>
+        <ul>
+            <li v-for="(ingredient, i) in ingredients"> {{ ingredient }} ({{i}})</li>
+        </ul>
+        <h2>Using an Alternative v-for Syntax</h2>
+        <template v-for="(ingredient, index) in ingredients">
+            <h3>{{ ingredient }}</h3>
+            <p>{{ index }}</p>
+        </template>
+        <hr>
+        <h2>Looping through Objects</h2>
+        <ul v-for="person in persons">
+            <li v-for="(value, key, index) in person">{{key}}: {{value}} ({{index}})</li>
+        </ul>
+        <hr>
+        <h2>Looping through a List of Numbers</h2>
+        <span v-for="n in 10">{{n}}</span>
+        <hr>
+        <h2>Keeping Track of Elements when using v-for</h2>
+        <ul>
+            <li v-for="(ingredient, i) in ingredients" :key="ingredient"> {{ ingredient }} ({{i}})</li>
+        </ul>
+        <button @click="ingredients.push('spices')">Add New</button>
+        
     </div>
     <script>
     // You may of course also outsource this script code into a separate file (e.g. app.js) and simply import this file here
@@ -36,7 +65,12 @@
             el: '#app',
             data: {
                 show: true,
-                template: true
+                template: true,
+                ingredients: ['meat' , 'fruit' , 'cookies'],
+                persons:[
+                    {name: 'Emad' , age: 27 , color: 'red'},
+                    {name: 'Maria' , age: 45 , color: 'yellow'}
+                ]
             }
         })
     </script>
